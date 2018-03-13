@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>scla</id>
+    <version>2.0.0</version>
+    <title>Sitecore Log Analyzer</title>
+    <authors>Sitecore</authors>
+    <owners>Alan</owners>
+    <projectUrl>https://marketplace.sitecore.net/en/Modules/Sitecore_Log_Analyzer.aspx</projectUrl>
+    <licenseUrl>https://profile.sitecore.net/en/Materials_Limited_License_Agreement.aspx</licenseUrl>
+    <iconUrl>https://cdn.rawgit.com/alan-null/choco-scla/master/icon.png</iconUrl>
+    <packageSourceUrl>https://github.com/alan-null/choco-scla</packageSourceUrl>
+    <tags>scla sitecore log analyzer</tags>
+    <bugTrackerUrl>https://github.com/alan-null/choco-scla/issues</bugTrackerUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>Sitecore Log Analyzer (SCLA)</summary>
+    <description>
+### Sitecore Log Analyzer
+
+Sitecore Log Analyzer is a powerful tool for parsing Sitecore log files. It provides the interface to explore and navigate through large amount of log data. For instance, you can group and analyze all errors, warnings, debug and audit messages logged by Sitecore application, monitor performance counters, and get a visual overview of website uptime and downtime intervals. The tool is designed for Sitecore administrators and developers who troubleshoot or monitor the health of Sitecore applications.
+
+### Features
+
+* Analyzing, grouping and navigating through log entries of Sitecore instance.
+* Analyzing log entries of Sitecore instances in Azure.
+* Analyzing Sitecore instance performance using Health Monitor counters.
+* Investigating Sitecore instance lifetime using visual timeline.
+* Reporting log entries to Sitecore. (this is a a background task which is performed in case you agreed to send this information to Sitecore)
+    </description>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
