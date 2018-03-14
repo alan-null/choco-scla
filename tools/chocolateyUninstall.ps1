@@ -1,0 +1,1 @@
+Remove-Item "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Sitecore Log Analyzer.lnk"
