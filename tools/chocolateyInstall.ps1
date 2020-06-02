@@ -1,8 +1,27 @@
-﻿$packageName = 'scla'
-$url = 'https://marketplace.sitecore.net/services/~/media/Marketplace/Modules/S/Sitecore_Log_Analyzer/packages/SCLA_2,-d-,0,-d-,0_rev,-d-,_140603.ashx'
+﻿$PSScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Definition
 
-Install-ChocolateyZipPackage $packageName $url "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
+$packageName = 'scla'
+$filePath = "$env:TEMP\chocolatey\$packageName"
+$fileFullPath = "$filePath\${packageName}.application"
+$url = 'http://dl.sitecore.net/updater/scla/SitecoreLogAnalyzer.application'
 
-$toolsPath = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$workingDirectory = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs"
-Install-ChocolateyShortcut -ShortcutFilePath "$workingDirectory\Sitecore Log Analyzer.lnk" -TargetPath "$toolsPath\SCLA.Launcher.exe" -WorkingDirectory $toolsPath
+$scriptPath = Split-Path -parent $MyInvocation.MyCommand.Definition
+$ahkExe = 'AutoHotKey'
+$ahkProcess = "$ahkExe '$scriptPath\scla-install.ahk'"
+
+if (-not (Test-Path $filePath)) {
+    New-Item $filePath -type directory
+}
+
+Get-ChocolateyWebFile $packageName $fileFullPath $url
+Start-Process $fileFullPath -ArgumentList "/s" -Wait
+Start-ChocolateyProcessAsAdmin $ahkProcess
+
+$dontQuit = $true
+do {
+    Start-Sleep -Seconds 1
+    $process = Get-Process | `
+        ? { $_.mainWindowTItle.Contains("Installing Sitecore Log Analyzer (SCLA)") } | `
+        ? { $_.ProcessName -eq "dfsvc" }
+    $dontQuit = $process -ne $null
+} while ($dontQuit)
